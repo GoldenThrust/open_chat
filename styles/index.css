@@ -188,6 +188,7 @@ textarea {
 }
 
 #commentSection {
+    overflow-x: hidden;
     overflow-y: auto;
     display: flex;
     align-items: self-start;
@@ -240,6 +241,11 @@ textarea {
     width: 100px;
 }
 
+
+.files {
+    overflow: hidden;
+}
+
 /* .text, */
 .file a {
     color: black;
@@ -248,4 +254,12 @@ textarea {
     flex-direction: row;
     gap: 5px;
     align-items: center;
+}
+
+.file :is(video, img, audio) {
+    width: 100px;
+    height: 100px;
+    max-width: 95%;
+    background-color: transparent;
+    padding: 0;
 }

@@ -29,8 +29,6 @@ class Chat implements MessageComponentInterface
     {
         $msg = json_decode($msg, true);
 
-        var_dump($msg);
-
         if (isset($msg['username'])) {
             $picture = USER->getPicture($msg['username']);
             $this->clientIdentifiers[spl_object_id($from)] = ['name' => $msg['username'], 'picture' => UPLOADDIR . $picture];

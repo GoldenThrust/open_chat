@@ -48,7 +48,7 @@ conn.onclose = function () {
 
 conn.addEventListener('message', (event) => {
     const data = JSON.parse(event.data);
-
+    
     if (data.type === 'alert') {
         showAlert(data.user.name + ' ' + data.message);
     } else {
@@ -56,28 +56,45 @@ conn.addEventListener('message', (event) => {
         const commentDiv = document.createElement('div');
         commentDiv.setAttribute('class', 'comment');
         setProfile(div, data.user.name, data.user.picture);
-        if (data.type == 'file') {
+        if (data.type !== 'text') {
             const fileDiv = document.createElement('div');
             fileDiv.setAttribute('class', 'file');
-            const a = document.createElement('a');
-            const span = document.createElement('span');
-            const image = new Image();
-            span.textContent = data.name;
-            image.src = 'public/docs.jpg'
-            a.href = data.file;
-            a.download = data.name;
-            a.appendChild(image);
-            a.appendChild(span);
-            fileDiv.appendChild(a);
+            let elem;
+            if (data.type === 'image') {
+                elem = new Image();
+                elem.src = data.file;
+            } else if (data.type === 'video') {
+                elem = document.createElement('video');
+                elem.src = data.file;
+                elem.controls = true;
+            } else if (data.type === 'audio') {
+                console.log(data.type);
+                elem = document.createElement('audio');
+                elem.src = data.file;
+                elem.controls = true;
+            } else {
+                const span = document.createElement('span');
+                const image = new Image();
+                span.textContent = data.name;
+                image.src = 'public/docs.jpg'
+                elem = document.createElement('a');
+                elem.href = data.file;
+                elem.download = data.name;
+                elem.appendChild(image);
+                elem.appendChild(span);
+            }
+            fileDiv.appendChild(elem);
             commentDiv.appendChild(fileDiv);
         }
 
-        const textDiv = document.createElement('div');
-        textDiv.setAttribute('class', 'text');
-        textDiv.textContent = data.message
-        commentDiv.appendChild(textDiv);
-        div.appendChild(commentDiv);
-        commentSection.appendChild(div);
+        if (data.message) {
+            const textDiv = document.createElement('div');
+            textDiv.setAttribute('class', 'text');
+            textDiv.textContent = data.message
+            commentDiv.appendChild(textDiv);
+            div.appendChild(commentDiv);
+            commentSection.appendChild(div);
+        }
         scrollToBottom();
     }
 });
@@ -224,17 +241,19 @@ files.forEach((elem) => {
     elem.addEventListener('change', (e) => {
         const data = e.target.files[0];
 
-        if (data.type.includes('video')) {
-            showPreview(data, 'video');
-        }
-        else if (data.type.includes('image')) {
-            showPreview(data, 'image');
-        }
-        else if (data.type.includes('audio')) {
-            showPreview(data, 'audio');
-        }
-        else {
-            showPreview(data, 'file');
+        if (data) {
+            if (data.type.includes('video')) {
+                showPreview(data, 'video');
+            }
+            else if (data.type.includes('image')) {
+                showPreview(data, 'image');
+            }
+            else if (data.type.includes('audio')) {
+                showPreview(data, 'audio');
+            }
+            else {
+                showPreview(data, 'file');
+            }
         }
     })
 })
@@ -247,7 +266,7 @@ p_submit.addEventListener('click', () => {
     mask.style.display = 'none';
 
     p_comment.value = '';
-    
+
     file_pre.removeChild(file_pre.children[0]);
 
 })
@@ -284,7 +303,6 @@ p_comment.addEventListener('keypress', (event) => {
         mask.style.display = 'none';
 
         p_comment.value = '';
-        console.log(file_pre.firstChild)
         file_pre.removeChild(file_pre.children[0]);
     }
 })
