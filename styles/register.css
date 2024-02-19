@@ -1,0 +1,45 @@
+body {
+    color: aliceblue;
+    background-color: rgb(13, 12, 14);
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    color: #eccfcf;
+    width: 50%;
+    border: 2px solid rgb(119, 88, 1);
+    border-radius: 5px;
+    box-shadow: 0 0 15px #e9530d;
+    background-color: #865f3d;
+}
+
+legend {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+input, label {
+    height: 30px;
+    background-color: rgb(190, 139, 71);
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-left: 2px;
+}
+
+input[type="submit"] {
+    border: 1px solid rgb(43, 22, 14);
+    color: inherit;
+    background-color: #410d23;
+    font-weight: 600;
+    font-size: larger;
+}
+
+label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

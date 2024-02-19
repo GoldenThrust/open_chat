@@ -1,4 +1,5 @@
 /vendor/
+modules/
 node_modules/
 npm-debug.log
 yarn-error.log
@@ -8,8 +9,7 @@ bootstrap/compiled.php
 app/storage/
 
 # Laravel 5 & Lumen specific
-public/storage
-public/hot
+public/
 
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
