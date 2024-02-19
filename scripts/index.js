@@ -16,6 +16,7 @@ const nameTags = document.getElementById('nameTag');
 const alert = document.getElementById('alert');
 
 
+// interface
 let file = {
     type: '',
     file: '',
@@ -25,7 +26,7 @@ let file = {
 
 
 
-var conn = new WebSocket(`ws://${window.location.hostname}:8080`);
+const conn = new WebSocket(`ws://${window.location.hostname}:8080`);
 
 conn.onopen = function (e) {
     conn.send(JSON.stringify(
@@ -48,7 +49,7 @@ conn.onclose = function () {
 
 conn.addEventListener('message', (event) => {
     const data = JSON.parse(event.data);
-    
+
     if (data.type === 'alert') {
         showAlert(data.user.name + ' ' + data.message);
     } else {
@@ -92,9 +93,9 @@ conn.addEventListener('message', (event) => {
             textDiv.setAttribute('class', 'text');
             textDiv.textContent = data.message
             commentDiv.appendChild(textDiv);
-            div.appendChild(commentDiv);
-            commentSection.appendChild(div);
         }
+        div.appendChild(commentDiv);
+        commentSection.appendChild(div);
         scrollToBottom();
     }
 });
@@ -146,8 +147,31 @@ function CaptureVideo() {
     // Add functionality for capturing video
 }
 
+navigator.mediaDevices.getUserMedia({ video: true })
+.then((stream) => {
+  const video = document.getElementById('video');
+  video.srcObject = stream;
+})
+.catch((error) => {
+  console.error('Error accessing camera:', error);
+});
+
 function CapturePics() {
-    // Add functionality for capturing pictures
+
+    const video = document.crea('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+
+    // Set canvas dimensions to match video
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    // Draw current frame from video onto the canvas
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Convert the canvas content to a data URL and display it
+    const imageDataURL = canvas.toDataURL('image/png');
+    showPhoto(imageDataURL);
 }
 
 function VideoOrPics() {
@@ -268,7 +292,18 @@ p_submit.addEventListener('click', () => {
     p_comment.value = '';
 
     file_pre.removeChild(file_pre.children[0]);
+})
 
+p_comment.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        file['message'] = p_comment.value;
+        conn.send(JSON.stringify(file));
+        preview.style.display = 'none';
+        mask.style.display = 'none';
+
+        p_comment.value = '';
+        file_pre.removeChild(file_pre.children[0]);
+    }
 })
 
 sendMessage.addEventListener('click', (event) => {
@@ -295,17 +330,6 @@ comment.addEventListener('keypress', (event) => {
     }
 })
 
-p_comment.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-        file['message'] = p_comment.value;
-        conn.send(JSON.stringify(file));
-        preview.style.display = 'none';
-        mask.style.display = 'none';
-
-        p_comment.value = '';
-        file_pre.removeChild(file_pre.children[0]);
-    }
-})
 
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     computer.forEach((elem) => {

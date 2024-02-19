@@ -50,7 +50,6 @@ class Game implements MessageComponentInterface
 
         $clientId = $this->clientIdentifiers[spl_object_id($conn)] ?? null;
 
-        // fclose($this->buf[spl_object_id($conn)]);
 
         if ($clientId !== null) {
             unset($this->clientIdentifiers[spl_object_id($conn)]);
