@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'loader.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'loader.php';
 
 session_unset();
 session_destroy();

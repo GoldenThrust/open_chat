@@ -257,9 +257,8 @@ textarea {
 }
 
 .file :is(video, img, audio) {
-    width: 100px;
-    height: 100px;
-    max-width: 95%;
+    position: relative;
+    max-height: 100px;
     background-color: transparent;
-    padding: 0;
+    z-index: -1;
 }

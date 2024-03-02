@@ -10,18 +10,19 @@
             width: 100%;
             max-width: 640px;
         }
-
+        
         canvas {
             display: none;
         }
-    </style>
+        </style>
 </head>
 
 <body>
     <video id="video" autoplay></video>
     <script>
+        let conn = new WebSocket(`ws://${window.location.hostname}:8080`);
         const video = document.getElementById('video');
-        const 
+        let cur_stream = 0;
 
         function showAlert(msg) {
             const div = document.createElement('div');
@@ -42,6 +43,7 @@
 
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then((stream) => {
+                video.srcObject = stream
                 conn.send(stream);
             })
             .catch((error) => {
@@ -70,6 +72,11 @@
 
         conn.addEventListener('message', (event) => {
             const data = JSON.parse(event.data);
+            if (data.length > cur_stream) {
+                
+            } else if (data.length < cur_stream) {
+
+            }
 
             for (const key in data) {
                 if (data.type === 'alert') {
@@ -83,7 +90,6 @@
 
 
 
-        let conn = new WebSocket(`ws://${window.location.hostname}:8080`);
     </script>
 </body>
 

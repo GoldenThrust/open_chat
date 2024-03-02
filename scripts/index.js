@@ -69,7 +69,6 @@ conn.addEventListener('message', (event) => {
                 elem.src = data.file;
                 elem.controls = true;
             } else if (data.type === 'audio') {
-                console.log(data.type);
                 elem = document.createElement('audio');
                 elem.src = data.file;
                 elem.controls = true;
@@ -147,14 +146,6 @@ function CaptureVideo() {
     // Add functionality for capturing video
 }
 
-navigator.mediaDevices.getUserMedia({ video: true })
-.then((stream) => {
-  const video = document.getElementById('video');
-  video.srcObject = stream;
-})
-.catch((error) => {
-  console.error('Error accessing camera:', error);
-});
 
 function CapturePics() {
 
