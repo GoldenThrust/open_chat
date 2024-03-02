@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Recorder</title>
     <style>
-        #streams {
-            display: flex;
-            justify-content: space-evenly;
-            flex-wrap: wrap;
+        video {
+            width: 100%;
+            max-width: 640px;
         }
-    </style>
+
+        canvas {
+            display: none;
+        }
+        </style>
 </head>
 
 <body>
@@ -19,69 +22,29 @@
     <video id="video" autoplay></video>
     <div id="streams"></div>
     <script>
-        let conn = new WebSocket(`ws://${window.location.hostname}:8080`);
-        const streams = document.getElementById('streams');
-        const streamObj = {};
+        const video = document.getElementById('video');
+        const 
 
-        function blobToArrayBuffer(blob) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsArrayBuffer(blob);
-            });
+        function showAlert(msg) {
+            const div = document.createElement('div');
+            div.textContent = msg;
+            alert.appendChild(div);
+
+            div.style.right = '0px';
+
+            setTimeout(() => {
+                div.style.right = '-500px';
+            }, 3000);
+
+            setTimeout(() => {
+                alert.removeChild(div);
+            }, 4000);
         }
 
-        const video = document.getElementById('video');
 
-
-        navigator.mediaDevices.getUserMedia({
-                video: true
-            })
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then((stream) => {
-                video.srcObject = stream
-                // Create a MediaRecorder
-                const mediaRecorder = new MediaRecorder(stream);
-
-                // Create an array to store chunks of data
-                const chunks = [];
-
-                // Event handler when data is available
-                mediaRecorder.ondataavailable = (event) => {
-                    if (event.data.size > 0) {
-                        chunks.push(event.data);
-                    }
-                };
-
-                // Event handler when recording stops
-                mediaRecorder.onstop = () => {
-                    // Combine the chunks into a single Blob
-                    const blob = new Blob(chunks, {
-                        type: 'video/webm'
-                    });
-
-                    // Convert the Blob to a base64-encoded string
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                        const base64Data = reader.result.split(',')[1];
-
-                        const data = {
-                            type: 'stream',
-                            data: base64Data
-                        };
-
-                        conn.send(JSON.stringify(data));
-                    };
-                    reader.readAsDataURL(blob);
-                };
-
-                // Start recording
-                mediaRecorder.start();
-
-                // Stop recording after 5 seconds (for example)
-                setTimeout(() => {
-                    mediaRecorder.stop();
-                }, 5000);
+                conn.send(stream);
             })
             .catch((error) => {
                 console.error('Error accessing webcam:', error);
@@ -124,8 +87,6 @@
         conn.addEventListener('message', (event) => {
             const data = JSON.parse(event.data);
 
-            console.log(data);
-
             for (const key in data) {
                 if (data[key].type === 'opened') {
                     streamObj[data[key].id] = document.createElement('video');
@@ -144,20 +105,10 @@
             }
         });
 
-        function base64ToBlob(base64Data) {
-            const byteString = atob(base64Data);
-            const buffer = new ArrayBuffer(byteString.length);
-            const uint8Array = new Uint8Array(buffer);
 
-            for (let i = 0; i < byteString.length; i++) {
-                uint8Array[i] = byteString.charCodeAt(i);
-            }
 
-            // Create a Blob using the ArrayBuffer
-            return new Blob([buffer], {
-                type: 'video/webm'
-            }); // Adjust the MIME type accordingly
-        }
+
+        let conn = new WebSocket(`ws://${window.location.hostname}:8080`);
     </script>
 </body>
 
