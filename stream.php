@@ -10,7 +10,7 @@
             width: 100%;
             max-width: 640px;
         }
-        
+
         canvas {
             display: none;
         }
@@ -18,11 +18,11 @@
 </head>
 
 <body>
+    <?php var_dump($_SERVER) ?>
     <video id="video" autoplay></video>
+    <div id="streams"></div>
     <script>
-        let conn = new WebSocket(`ws://${window.location.hostname}:8080`);
         const video = document.getElementById('video');
-        let cur_stream = 0;
 
         function showAlert(msg) {
             const div = document.createElement('div');
@@ -43,46 +43,63 @@
 
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then((stream) => {
-                video.srcObject = stream
                 conn.send(stream);
             })
             .catch((error) => {
-                console.error('Error accessing camera:', error);
+                console.error('Error accessing webcam:', error);
             });
 
+        // navigator.mediaDevices.getUserMedia({
+        //         video: true,
+        //         audio: true
+        //     })
+        //     .then((stream) => {
+        //         video.srcObject = stream;
+        //         console.log(stream)
 
+        //         const data = {
+        //             type: 'stream',
+        //             data: res
+        //         };
 
-        conn.onopen = function (e) {
-            conn.send(JSON.stringify(
-                {
-                    type: 'alert',
-                    message: 'Connected successfully',
-                }
-            ));
+        //         conn.send(JSON.stringify(data));
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error accessing camera:', error);
+        //     });
+
+        conn.onopen = function(e) {
+            conn.send(JSON.stringify({
+                type: 'opened',
+                data: 'Connected successfully',
+            }));
         };
 
-        conn.onclose = function () {
-            conn.send(JSON.stringify(
-                {
-                    type: 'alert',
-                    message: 'Disconnected',
-                }
-            ));
+        conn.onclose = function(event) {
+            console.log('WebSocket closed:', event.reason);
+        };
+
+        conn.onerror = function(error) {
+            console.error('WebSocket Error:', error);
         };
 
         conn.addEventListener('message', (event) => {
             const data = JSON.parse(event.data);
-            if (data.length > cur_stream) {
-                
-            } else if (data.length < cur_stream) {
-
-            }
 
             for (const key in data) {
-                if (data.type === 'alert') {
-                    console.log(data.message);
-                } else {
-                    data.data
+                if (data[key].type === 'opened') {
+                    streamObj[data[key].id] = document.createElement('video');
+                    streamObj[data[key].id].setAttribute('data-id', data[key].id);
+                    streamObj[data[key].id].setAttribute('autoplay', true);
+                    streamObj[data[key].id].setAttribute('controls', true);
+                    streams.appendChild(streamObj[data[key].id]);
+                    console.log(data[key].data);
+                } else if (data[key].type === 'closed') {
+                    streams.removeChild(streamObj[data[key].id]);
+                } else if (data[key].type === 'stream') {
+                    const blobUrl = URL.createObjectURL(data[key].data);
+                    streamObj[data[key].id].src = base64ToBlob(blobUrl);
+                    console.log(streamObj)
                 }
             }
         });
@@ -90,6 +107,7 @@
 
 
 
+        let conn = new WebSocket(`ws://${window.location.hostname}:8080`);
     </script>
 </body>
 
