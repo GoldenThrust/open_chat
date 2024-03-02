@@ -23,7 +23,6 @@
     <div id="streams"></div>
     <script>
         const video = document.getElementById('video');
-        const 
 
         function showAlert(msg) {
             const div = document.createElement('div');
