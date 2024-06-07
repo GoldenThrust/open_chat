@@ -1,0 +1,157 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #563d2d;
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.header nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.header nav ul li {
+    margin-left: 2rem;
+}
+
+.header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.hero {
+    background: url('unsplash_SvwoZeXUvNs.png') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 1.5rem;
+}
+
+.btn {
+    background-color: #b78a57;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #a67646;
+}
+
+.about, .menu, .contact {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.about h2, .menu h2, .contact h2 {
+    color: #b78a57;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.about p, .contact p {
+    color: #755746;
+    font-size: 1.2rem;
+}
+
+.menu {
+    background-color: #fff;
+}
+
+.menu-item {
+    margin-top: 2rem;
+}
+
+.menu-item img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+.menu-item h3 {
+    color: #b78a57;
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.menu-item p {
+    color: #755746;
+    font-size: 1rem;
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact label {
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.contact input, .contact textarea {
+    width: 100%;
+    max-width: 500px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact button {
+    margin-top: 1rem;
+}
+
+footer {
+    background-color: #563d2d;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}

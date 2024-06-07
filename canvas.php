@@ -24,7 +24,7 @@
 <body>
     <canvas></canvas>
     <script>
-        var conn = new WebSocket('ws://6.tcp.eu.ngrok.io:19617');
+        const conn = new WebSocket(`ws://${window.location.hostname}:8081`);
         const canvas = document.querySelector('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -36,8 +36,12 @@
             conn.send(JSON.stringify(data));
         }
 
+        function touchmove(event) {
+            const data = {x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY};
+            conn.send(JSON.stringify(data));
+        }
+
         conn.addEventListener('message', (event) => {
-            console.log(event.data);
             const data = JSON.parse(event.data);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (const key in data) {
@@ -49,6 +53,7 @@
         });
 
         window.addEventListener('mousemove', mouseMove);
+        window.addEventListener('touchmove', touchmove);
     </script>
 </body>
 </html>

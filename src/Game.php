@@ -19,7 +19,6 @@ class Game implements MessageComponentInterface
     public function onOpen(ConnectionInterface $conn)
     {
         echo "New connection! (" . spl_object_id($conn) . ")\n";
-        // $this->buf[spl_object_id($conn)] = fopen('logger_'. spl_object_id($conn) .'.txt', 'a+');
 
         $color = "rgb(" . random_int(0, 255) . "," . random_int(0, 255) . "," . random_int(0, 255). ")";
         $init = ['x' => random_int(0, 100), 'y' => random_int(0, 100), 'color' => $color];
@@ -29,10 +28,7 @@ class Game implements MessageComponentInterface
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        var_dump($msg);
         $numRecv = count($this->clients) - 1;
-        echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
-            , spl_object_id($from), $msg, $numRecv, $numRecv == 1 ? '' : 's');
 
         foreach ($this->clients as $client) {
             $data = json_decode($msg, true);

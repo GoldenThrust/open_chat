@@ -13,7 +13,7 @@ $server = IoServer::factory(
             new Game()
         )
     ),
-    8080
+    8081
 );
 
 $server->run();
