@@ -1,0 +1,10 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Rewrite all requests to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+
+ErrorDocument 404 /error.php

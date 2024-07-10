@@ -5,7 +5,6 @@ $db = new Database('localhost', 'game', 'root', '');
 define('USER', new User($db));
 define('UPLOADDIR', "public" . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR);
 
-
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 

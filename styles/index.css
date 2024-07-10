@@ -156,8 +156,8 @@ textarea {
 
 #preview {
     width: 50%;
-    /* display: flex; */
     flex-direction: column;
+    z-index: 1;
 }
 
 .preview {
@@ -239,6 +239,7 @@ textarea {
 
 .comments .file img {
     width: 100px;
+    aspect-ratio: 1;
 }
 
 
@@ -251,15 +252,13 @@ textarea {
     color: black;
     text-decoration: none;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 5px;
     align-items: center;
 }
 
 .file :is(video, img, audio) {
-    width: 100%;
+    width: 50%;
     position: relative;
-    max-height: 100px;
     background-color: transparent;
-    z-index: 1;
 }
