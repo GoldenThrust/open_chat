@@ -82,6 +82,7 @@ aside {
     justify-content: center;
     gap: 20px;
     display: none;
+    z-index: 1;
 }
 
 input[type="file"] {
@@ -97,13 +98,15 @@ input[type="file"] {
 }
 
 .comment div {
-    background-color: #f1f1f1;
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     width: 80%;
     max-width: 600px;
+}
+
+.comment .text {
+    background-color: #f1f1f1; 
 }
 
 #comment {
@@ -129,17 +132,12 @@ textarea {
 
 #sendSection input[type="submit"] {
     padding: 10px;
-    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%;
-}
-
-#commentSection input[type="submit"]:hover {
-    background-color: #0056b3;
 }
 
 
@@ -179,7 +177,6 @@ textarea {
 #preview input[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -261,4 +258,22 @@ textarea {
     width: 50%;
     position: relative;
     background-color: transparent;
+}
+
+.file {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.file:hover {
+    transform: scale(1.2);
+}
+
+input[type="submit"] {
+    background-color: #6c63ff;
+}
+
+input[type="submit"]:hover {
+    background-color: #5a54d6;
 }

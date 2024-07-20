@@ -11,6 +11,7 @@ class User
 
     public function register(string $username, array $picture, string $password)
     {
+        var_dump($username, $picture, $password);
         try {
             $uniqueIdentifier = uniqid();
             $targetFile = $uniqueIdentifier . '_' . str_ireplace(" ", "_", $picture['name']);
@@ -38,7 +39,7 @@ class User
 
 
             if (move_uploaded_file($picture["tmp_name"], UPLOADDIR . $targetFile)) {
-                $sql = "INSERT INTO players (username, picture, password) VALUES (:username, :picture, :password)";
+                $sql = "INSERT INTO users (username, picture, password) VALUES (:username, :picture, :password)";
                 $stmt = $this->conn->prepare($sql);
                 $stmt->bindValue(':username', $username, \PDO::PARAM_STR);
                 $stmt->bindValue(':picture', $targetFile, \PDO::PARAM_STR);
@@ -56,7 +57,7 @@ class User
     public function login($username, $password)
     {
         try {
-            $sql = "SELECT id, password FROM players WHERE username = :username";
+            $sql = "SELECT id, password FROM users WHERE username = :username";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
             $stmt->execute();
@@ -82,7 +83,7 @@ class User
     public function getPicture($username)
     {
         try {
-            $sql = "SELECT picture FROM players WHERE username = :username";
+            $sql = "SELECT picture FROM users WHERE username = :username";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':username', $username, \PDO::PARAM_STR);
             $stmt->execute();

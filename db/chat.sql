@@ -18,16 +18,17 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `game`
+-- Database: `Chat`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `players`
+-- Table structure for table `users`
 --
+CREATE DATABASE `users` IF NOT EXISTS `users`;
 
-CREATE TABLE `players` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(11) NOT NULL,
   `password` varchar(65) NOT NULL,
@@ -36,10 +37,10 @@ CREATE TABLE `players` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `players`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `players` (`id`, `username`, `password`, `picture`, `created_date`) VALUES
+INSERT INTO `users` (`id`, `username`, `password`, `picture`, `created_date`) VALUES
 (1, 'Martian', '$2y$10$9wV50CLZkTqacT/.szuD0uPNLjBiXWmXwYNexuUqCH1ZhdjMOtuVS', '65d0c79aaf8dagithub_nitro.gif', '2024-02-17 14:50:02'),
 (2, 'Billy', '$2y$10$mgAtbOiUeEk/XSofOL5QnujwtakHFiFbsCJdMXxT6vgUxrRHcbQ0m', '65d0c938875bf_47-businessman-png-image.png', '2024-02-17 14:56:56'),
 (3, 'Goblin', '$2y$10$2w975TDtCMTsh9QKTXgu0ek.87M4Sl47NuEIN9uIAsQV4ui7.VVEm', '65d0ca7ef03f3_20231007_162126_mfnr.jpg', '2024-02-17 15:02:23'),
@@ -53,9 +54,9 @@ INSERT INTO `players` (`id`, `username`, `password`, `picture`, `created_date`) 
 --
 
 --
--- Indexes for table `players`
+-- Indexes for table `users`
 --
-ALTER TABLE `players`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
@@ -64,9 +65,9 @@ ALTER TABLE `players`
 --
 
 --
--- AUTO_INCREMENT for table `players`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `players`
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 

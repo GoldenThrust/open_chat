@@ -22,23 +22,27 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="styles/register.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- <script src="scripts/main.js" defer ></script> -->
 </head>
 
 <body>
-    <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
-
-        <fieldset class='pos-center'>
-            <legend>Sign in</legend>
-            <input type="text" name="username" id="username">
-            <input type="password" name="password" id="password">
-            <a href="./register.php">Sign Up</a>
-            <input type="submit" value="Sign In">
-        </fieldset>
-    </form>
+    <div class="form-container">
+        <h2>Login</h2>
+        <div id="error-message" class="error-message"><?= $_GET['error'] ?? '' ?></div>
+        <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <input type="submit" value="Login">
+        </form>
+        <p class="redirect-link">Don't have an account? <a href="register.php">Sign up here</a></p>
+    </div>
 </body>
 
 </html>

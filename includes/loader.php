@@ -4,7 +4,7 @@ use Gem\User;
 use Gem\Database;
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-$db = new Database('localhost', 'game', 'root', '');
+$db = new Database('localhost', 'chat', 'root', '');
 
 $user = new User($db);
 

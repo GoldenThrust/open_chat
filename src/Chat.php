@@ -1,6 +1,6 @@
 <?php
 namespace Gem;
-$db = new Database('localhost', 'game', 'root', '');
+$db = new Database('localhost', 'chat', 'root', '');
 
 define('USER', new User($db));
 define('UPLOADDIR', "public" . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR);
