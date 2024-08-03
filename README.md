@@ -1,6 +1,6 @@
 # Open Chat
 
-Open Chat is a robust, real-time chat application built with PHP and PHP Ratchet. It provides seamless and responsive messaging capabilities, featuring various functionalities that enhance user interaction and communication.
+Open Chat is a real-time chat application built with PHP and PHP Ratchet. It provides seamless and responsive messaging capabilities, featuring various functionalities that enhance user interaction and communication.
 
 ## Key Features
 
