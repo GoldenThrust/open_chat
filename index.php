@@ -3,15 +3,15 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'load
 if (!isset($_SESSION['USERNAME'])) {
     header('Location: login.php');
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group Chat</title>
+    <title>Open Chat</title>
     <link rel="stylesheet" href="styles/index.css">
     <script src="scripts/index.js
     " defer></script>
